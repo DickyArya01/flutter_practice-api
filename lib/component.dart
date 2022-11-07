@@ -10,10 +10,15 @@ class UserImage extends StatefulWidget {
 class _UserImageState extends State<UserImage> {
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: 48,
-      backgroundImage: NetworkImage(
-          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
+    return Container(
+      margin: EdgeInsets.only(right: 16),
+      child: CircleAvatar(
+        minRadius: 32,
+        maxRadius: 34,
+        backgroundImage: NetworkImage(
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+        ),
+      ),
     );
   }
 }
@@ -27,9 +32,21 @@ class UserDescList extends StatefulWidget {
 class _UserDescListState extends State<UserDescList> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Expanded(
       child: Center(
-        child: Text("User"),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                Text("User"),
+                Text("desc"),
+              ],
+            ),
+            Text("another desc")
+          ],
+        ),
       ),
     );
   }
