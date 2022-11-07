@@ -16,9 +16,13 @@ class _HomePageState extends State<HomePage> {
       body: ListView.builder(
         itemCount: 5,
         itemBuilder: (context, index) => Container(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [UserImage(), UserDescList()],
+            child: Container(
+          margin: EdgeInsets.symmetric(vertical: 8),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [UserImage(), UserDescList()],
+          ),
         )),
       ),
     );
