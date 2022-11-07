@@ -1,4 +1,5 @@
 import 'package:dicky/constant.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,10 +12,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-          child: ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, detail),
-              child: Text("Go to detail"))),
+      body: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (context, index) =>
+            Container(child: Center(child: Text("Anjay"))),
+      ),
     );
   }
 }
