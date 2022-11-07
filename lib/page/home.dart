@@ -1,3 +1,5 @@
+import 'package:dicky/api/model.dart';
+import 'package:dicky/api/repository.dart';
 import 'package:dicky/component.dart';
 import 'package:dicky/constant.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,19 +11,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<User> listUser = [];
+  Repository repository = Repository();
+
+  getdata() async {
+    listUser = await repository.getData();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getdata();
+    print(listUser);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: ListView.builder(
-        itemCount: 5,
+        itemCount: listUser.length,
         itemBuilder: (context, index) => Container(
             child: Container(
           margin: EdgeInsets.symmetric(vertical: 8),
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [UserImage(), UserDescList()],
+            children: [],
           ),
         )),
       ),
