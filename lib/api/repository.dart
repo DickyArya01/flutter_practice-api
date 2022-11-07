@@ -4,21 +4,11 @@ import 'package:dicky/api/model.dart';
 import 'package:http/http.dart' as http;
 
 class Repository {
-  final baseUrl = 'https://reqres.in/api/users?page=2';
+  final String apiUrl = "https://reqres.in/api/users?per_page=15";
 
-  Future getData() async {
-    try {
-      final response = await http.get(Uri.parse(baseUrl));
-
-      if (response.statusCode == 200) {
-        Iterable it = jsonDecode(response.body);
-        List<User> user = it.map((e) => User.fromJson(e)).toList();
-        return user;
-      } else {
-        print(response.statusCode);
-      }
-    } catch (e) {
-      print(e.toString());
-    }
+  Future<List<User>> fecthDataUsers() async {
+    var result = await http.get(Uri.parse(apiUrl));
+    List<dynamic> listJson = json.decode(result.body)["data"];
+    return listJson.map((e) => User.fromJson(e)).toList();
   }
 }

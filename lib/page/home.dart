@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:dicky/api/model.dart';
 import 'package:dicky/api/repository.dart';
 import 'package:dicky/component.dart';
 import 'package:dicky/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:dicky/api/model.dart';
+
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,36 +16,39 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<User> listUser = [];
-  Repository repository = Repository();
-
-  getdata() async {
-    listUser = await repository.getData();
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    getdata();
-    print(listUser);
-    super.initState();
-  }
-
+  Repository repo = Repository();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: ListView.builder(
-        itemCount: listUser.length,
-        itemBuilder: (context, index) => Container(
-            child: Container(
-          margin: EdgeInsets.symmetric(vertical: 8),
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [],
-          ),
-        )),
+      appBar: AppBar(
+        title: Text('Belajar GET HTTP'),
+      ),
+      body: Container(
+        child: FutureBuilder<List<dynamic>>(
+          future: repo.fecthDataUsers(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                  padding: EdgeInsets.all(10),
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      leading: CircleAvatar(
+                        radius: 30,
+                        backgroundImage:
+                            NetworkImage(snapshot.data[index].avatar),
+                      ),
+                      title: Text(snapshot.data[index].firstName +
+                          " " +
+                          snapshot.data[index].lastName),
+                      subtitle: Text(snapshot.data[index].email),
+                    );
+                  });
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
     );
   }

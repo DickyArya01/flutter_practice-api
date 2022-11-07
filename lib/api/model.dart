@@ -17,10 +17,10 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-        id: json['data']['id'],
-        email: json['data']['email'],
-        firstName: json['data']['first_name'],
-        lastName: json['data']['last_name'],
-        avatar: json['data']['avatar']);
+        id: json['id'],
+        email: json['email'],
+        firstName: json['first_name'],
+        lastName: json['last_name'],
+        avatar: json['avatar']);
   }
 }
