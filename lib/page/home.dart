@@ -1,3 +1,4 @@
+import 'package:dicky/component.dart';
 import 'package:dicky/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,11 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(),
       body: ListView.builder(
         itemCount: 5,
-        itemBuilder: (context, index) =>
-            Container(child: Center(child: Text("Anjay"))),
+        itemBuilder: (context, index) => Container(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [UserImage(), UserDescList()],
+        )),
       ),
     );
   }
