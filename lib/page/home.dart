@@ -32,16 +32,21 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.all(10),
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      leading: CircleAvatar(
-                        radius: 30,
-                        backgroundImage:
-                            NetworkImage(snapshot.data[index].avatar),
+                    return GestureDetector(
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          radius: 30,
+                          backgroundImage:
+                              NetworkImage(snapshot.data[index].avatar),
+                        ),
+                        title: Text(snapshot.data[index].firstName +
+                            " " +
+                            snapshot.data[index].lastName),
+                        subtitle: Text(snapshot.data[index].email),
                       ),
-                      title: Text(snapshot.data[index].firstName +
-                          " " +
-                          snapshot.data[index].lastName),
-                      subtitle: Text(snapshot.data[index].email),
+                      onTap: () {
+                        Navigator.pushNamed(context, detail);
+                      },
                     );
                   });
             } else {
